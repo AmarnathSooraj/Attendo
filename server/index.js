@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-
+const PORT = process.env.PORT || 5000;
 require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
@@ -16,6 +16,6 @@ app.use('/', authRoutes);
 app.use('/', otpRoutes);
 app.use('/', attendenceRoutes);
 
-app.listen(5000, () => {
-    console.log("app is listening at 5000");
+app.listen(PORT, () => {
+    console.log(`app is listening at ${PORT}`);
 });
