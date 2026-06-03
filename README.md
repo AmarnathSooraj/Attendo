@@ -8,6 +8,24 @@ The backend uses **Firebase Firestore** for data storage, while **Email OTP veri
 
 ---
 
+## 📱 Download App
+
+You can download the latest Android APK for this application here:
+- [Download Attendo APK](./releases/attendo-app.apk)
+
+---
+
+## 📸 Screenshots
+
+<p align="center">
+  <img src="./screenshots/signup.jpg" width="200" alt="Sign Up" />
+  <img src="./screenshots/otp-verification.jpg" width="200" alt="OTP Verification" />
+  <img src="./screenshots/login.jpg" width="200" alt="Login" />
+  <img src="./screenshots/dashboard.jpg" width="200" alt="Dashboard" />
+</p>
+
+---
+
 ## Features
 
 ### User Registration
@@ -52,7 +70,7 @@ The backend uses **Firebase Firestore** for data storage, while **Email OTP veri
 - Firebase Firestore
 - JWT Authentication
 - bcryptjs
-- Nodemailer
+- Resend
 
 ---
 
@@ -90,8 +108,8 @@ Create a `.env` file inside the `server` folder:
 ```env
 PORT=5000
 JWT_SECRET=your_jwt_secret_key
-EMAIL_USER=your_email@gmail.com
-EMAIL_PASS=your_google_app_password
+RESEND_API_KEY=re_your_api_key_here
+RESEND_FROM_EMAIL=no-reply@yourdomain.com
 ```
 
 ### 4. Add Firebase Admin SDK Credentials
