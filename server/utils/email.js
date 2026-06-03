@@ -1,18 +1,29 @@
-const { Resend } = require('resend');
-
-// Initialize Resend with the API key from environment variables
-const resend = new Resend(process.env.RESEND_API_KEY);
+const nodemailer = require("nodemailer");
 
 const sendEmail = async (email, otp) => {
   try {
-    // If you haven't verified a domain on Resend, you must use 'onboarding@resend.dev' 
-    // and you can only send emails to the email address you signed up with.
-    const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      requireTLS: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+      // Force IPv4 to prevent ENETUNREACH errors on cloud providers that don't route IPv6 outbound
+      tls: {
+        rejectUnauthorized: false
+      },
+      family: 4
+    });
 
-    const { data, error } = await resend.emails.send({
-      from: `Attendo <${fromEmail}>`,
-      to: [email],
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
       subject: "Your OTP for Signup",
+      text: `Your OTP is ${otp}. It is valid for 10 minutes.`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
           <h2 style="color: #333; text-align: center;">Signup Verification OTP</h2>
@@ -26,14 +37,10 @@ const sendEmail = async (email, otp) => {
           <p style="font-size: 14px; color: #777;">This OTP is valid for 10 minutes. If you did not request this, please ignore this email.</p>
         </div>
       `,
-    });
+    };
 
-    if (error) {
-      console.error("Resend API error:", error);
-      throw new Error(error.message);
-    }
-
-    console.log("Email sent successfully via Resend to", email);
+    await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully to", email);
   } catch (error) {
     console.error("Error sending email:", error);
     throw error;
