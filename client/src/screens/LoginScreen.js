@@ -31,6 +31,7 @@ export default function LoginScreen({ navigation }) {
         <TextInput
           style={style.input}
           placeholder='Employee ID'
+          placeholderTextColor='#999'
           value={employeeId}
           onChangeText={setEmployeeId}
           autoCapitalize='none'
@@ -38,6 +39,7 @@ export default function LoginScreen({ navigation }) {
         <TextInput
           style={style.input}
           placeholder='Password'
+          placeholderTextColor='#999'
           value={password}
           onChangeText={setPassword}
           secureTextEntry
@@ -76,6 +78,7 @@ const style = StyleSheet.create({
     borderRadius: 4,
     padding: 12,
     fontSize: 16,
+    color: '#000',
   },
   forgot: {
     textAlign: 'right',
