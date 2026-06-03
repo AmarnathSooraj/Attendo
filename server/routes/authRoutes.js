@@ -42,7 +42,8 @@ router.post('/signup', async (req, res) => {
                 isVerified: false
             });
 
-            await sendEmail(email, otp);
+            // Send email asynchronously to not block the request
+            sendEmail(email, otp).catch(err => console.error("Background email error:", err));
 
             return res.status(200).json({
                 success: true,
@@ -72,7 +73,8 @@ router.post('/signup', async (req, res) => {
             createdAt: new Date()
         });
 
-        await sendEmail(email, otp);
+        // Send email asynchronously to not block the request
+        sendEmail(email, otp).catch(err => console.error("Background email error:", err));
 
         res.status(200).json({
             success: true,
