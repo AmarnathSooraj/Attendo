@@ -1,0 +1,14 @@
+node_modules/
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# Environment variables
+.env
+.env.local
+
+# Firebase credentials (CRITICAL: Do not commit)
+/config/serviceAccountKey.json
+
+# macOS
+.DS_Store
